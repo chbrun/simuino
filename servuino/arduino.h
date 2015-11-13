@@ -8,12 +8,12 @@ using std::istream;
 #include <iomanip>
 using std::setw;
 
-#include <cstring> 
+#include <cstring>
 using std::strcmp;
 using std::strcpy;
 using std::strcat;
 
-#include <string> 
+#include <string>
 using std::string;
 
 #include <cstdlib>
@@ -49,10 +49,18 @@ typedef int byte;
 typedef int word;
 typedef bool boolean;
 
-typedef unsigned int uint8_t;
-typedef unsigned int uint16_t;
-typedef unsigned int uint32_t;
-typedef unsigned int uint64_t;
+#if defined __UINT32_MAX__ or UINT32_MAX
+#include <inttypes.h>
+#else
+typedef unsigned char uint8_t;
+typedef unsigned short uint16_t;
+typedef unsigned long uint32_t;
+typedef unsigned long long uint64_t;
+#endif
+//typedef unsigned int uint8_t;
+//typedef unsigned int uint16_t;
+//typedef unsigned int uint32_t;
+//typedef unsigned int uint64_t;
 
 // Functions
 int   bitRead(int x, int n);
@@ -372,24 +380,24 @@ public:
    bool operator<( const String & ) const; // test s1 < s2
 
    bool operator!=( const String &right ) const
-   { 
-      return !( *this == right ); 
-   } 
+   {
+      return !( *this == right );
+   }
 
    bool operator>( const String &right ) const
-   { 
-      return right < *this; 
-   } 
- 
+   {
+      return right < *this;
+   }
+
    bool operator<=( const String &right ) const
-   { 
-      return !( right < *this ); 
+   {
+      return !( right < *this );
    }
 
    bool operator>=( const String &right ) const
-   { 
-      return !( *this < right ); 
-   } 
+   {
+      return !( *this < right );
+   }
 
    char &operator[]( int ); // subscript operator (modifiable lvalue)
    char operator[]( int ) const; // subscript operator (rvalue)
@@ -397,9 +405,9 @@ public:
    int getLength() const; // return string length
 
    // ============ Benny adding =============
-   String( const int x ); 
+   String( const int x );
    String( const int x, const int base );
- 
+
    const String &operator=( string right );
    const String &operator=( const char *right );
 
@@ -410,30 +418,30 @@ public:
 
    char charAt(const int n);
    int compareTo(const String s);
-   String concat(const String s); 	
+   String concat(const String s);
    bool endsWith(const String s);
    bool equals(const String s);
-   bool equalsIgnoreCase(const String s);	
-   void getBytes(int buf[], int *len);	
-   int indexOf(char val); 
-   int indexOf(String val); 
-   int indexOf(char val, int from); 
-   int indexOf(String val, int from); 
-   int lastIndexOf(char val); 
-   int lastIndexOf(String val); 
-   int lastIndexOf(char val, int from); 
-   int lastIndexOf(String val, int from); 
-   int length(); 
-   String replace(String sub1, String sub2); 
-   void setCharAt(int index,char c); 
-   bool startsWith(String s); 
+   bool equalsIgnoreCase(const String s);
+   void getBytes(int buf[], int *len);
+   int indexOf(char val);
+   int indexOf(String val);
+   int indexOf(char val, int from);
+   int indexOf(String val, int from);
+   int lastIndexOf(char val);
+   int lastIndexOf(String val);
+   int lastIndexOf(char val, int from);
+   int lastIndexOf(String val, int from);
+   int length();
+   String replace(String sub1, String sub2);
+   void setCharAt(int index,char c);
+   bool startsWith(String s);
    String substring(int from);
    String substring(int from, int to);
    void toCharArray(char buf[], int *len);
-   void toLowerCase(); 
-   void toUpperCase(); 
-   void trim(); 
-   char *getPointer(); 
+   void toLowerCase();
+   void toUpperCase();
+   void trim();
+   char *getPointer();
 
 private:
    int lngth; // string length (not counting null terminator)
